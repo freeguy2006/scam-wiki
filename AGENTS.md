@@ -241,3 +241,12 @@ updated: YYYY-MM-DD # 最後修改日期
 - 白話、精簡，用條列和表格取代長段落。
 - 不捏造數字、機構名稱或網址；不確定就寫「（來源未說明）」。
 - 本檔可隨使用需求修改；修改時在 log 追加一筆 `setup` 紀錄。
+
+## 10. 簡報 workflow（`deck/`）
+
+用這個 wiki 當唯一知識來源產生防詐教學簡報的 Graph workflow，完整規格與執行步驟在 [deck/graph.md](deck/graph.md)。
+
+- 指令範例：`跑簡報 graph`（從頭執行）、`compare`（比較各 graph 版本的紀錄）。
+- workflow 對 `wiki/` 與 `raw/` **唯讀**；發現 wiki 缺資料時回報使用者，改用 ingest／lint 補，不在 workflow 裡改 wiki。
+- 執行紀錄寫在 `deck/logs/`，不寫進 `wiki/log.md`；只有修改 workflow 本身（graph 改版）時才在 log 追加 `setup` 紀錄。
+- commit 訊息：`deck: 摘要`，例如 `deck: 第 1 次執行 graph v1`；graph 改版時打 tag `graph-vN`。

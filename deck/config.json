@@ -1,0 +1,72 @@
+{
+  "graph_version": "v1",
+  "language": "zh-Hant",
+  "source_base_url": "../wiki/",
+  "browser_channel": "chrome",
+
+  "max_rounds_per_loop": 3,
+  "max_big_retreats": 3,
+
+  "segments": [
+    {"id": "cover",    "name": "封面",       "min_slides": 1, "max_slides": 1},
+    {"id": "goals",    "name": "學習目標",   "min_slides": 1, "max_slides": 1},
+    {"id": "concepts", "name": "概念",       "min_slides": 1, "max_slides": 3, "retrieval_min_pages": 2, "min_cards": 3},
+    {"id": "tactics",  "name": "手法與案例", "min_slides": 4, "max_slides": 6, "retrieval_min_pages": 4, "min_cards": 3},
+    {"id": "redflags", "name": "辨識紅旗",   "min_slides": 1, "max_slides": 3, "retrieval_min_pages": 2, "min_cards": 3},
+    {"id": "response", "name": "應對",       "min_slides": 1, "max_slides": 3, "retrieval_min_pages": 2, "min_cards": 3},
+    {"id": "quiz",     "name": "小測驗",     "min_slides": 1, "max_slides": 3},
+    {"id": "summary",  "name": "總結",       "min_slides": 1, "max_slides": 1}
+  ],
+  "slides_min": 14,
+  "slides_max": 18,
+  "tactics_min_distinct": 4,
+  "required_pages": ["假網拍", "解除分期付款"],
+
+  "body_char_max": 80,
+  "quiz_char_max_per_slide": 160,
+  "quiz_min": 3,
+  "quiz_max": 5,
+
+  "supplement": {
+    "segments": ["redflags", "response"],
+    "max_per_slide": 1,
+    "max_total": 5,
+    "label": "補充（非 wiki 內容）"
+  },
+
+  "render": {
+    "viewports": [
+      {"name": "desktop", "width": 1280, "height": 720},
+      {"name": "mobile",  "width": 390,  "height": 844}
+    ],
+    "extra_chars_max": 20
+  },
+
+  "error_types": ["數字不符", "扭曲原意", "覆蓋不足", "缺來源", "版面溢出", "結構缺段", "補充違規", "超出重跑範圍"],
+
+  "loops": {
+    "L1": ["N1", "N2"],
+    "L3": ["N3"],
+    "L4": ["N4"],
+    "L5": ["N5", "N6"],
+    "L7": ["N7", "N8"]
+  },
+
+  "routes": {
+    "N2":  ["N1"],
+    "N3":  ["N3", "N1"],
+    "N4":  ["N4"],
+    "N5":  ["N5"],
+    "N6":  ["N5", "N3"],
+    "N8":  ["N7", "N5"],
+    "U0":  ["N0"],
+    "U4":  ["N4", "N1", "N0"],
+    "U9":  ["N0", "N1", "N3", "N4", "N5", "N7"],
+    "ESC": ["N0", "N1", "N3", "N4", "N5", "N7"]
+  },
+
+  "next": {
+    "N0": "U0", "U0": "N1", "N1": "N2", "N2": "N3", "N3": "N4", "N4": "U4",
+    "U4": "N5", "N5": "N6", "N6": "N7", "N7": "N8", "N8": "U9", "U9": "N9"
+  }
+}

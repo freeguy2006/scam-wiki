@@ -58,7 +58,7 @@ flowchart TD
 | N4 大綱 | subagent（[prompt](prompts/gen_N4_outline.md)） | brief、證據卡 | `04_outline.md` | **不讀 wiki**、不新增事實 |
 | N5 逐頁稿 | subagent（[prompt](prompts/gen_N5_slides.md)） | 大綱、證據卡 | `05_slides.json` | **不讀 wiki**；補充依規則標記 |
 | N6 忠實度 | 全新 subagent（[prompt](prompts/review_N6_faithfulness.md)） | 逐頁稿、證據卡、被引用的 wiki 原頁 | `06_faithfulness.json` | 只判定，不改稿 |
-| N7 渲染 | subagent（[prompt](prompts/gen_N7_render.md)） | `05_slides.json`、`05_links.json` | `deck/deck.html` | 不改文字；遵守 HTML 標記約定 |
+| N7 渲染 | subagent（[prompt](prompts/gen_N7_render.md)） | `05_slides.json`、`05_links.json`；網路上的免授權圖片（只當裝飾） | `deck/deck.html`、`07_image_credits.json` | 不改文字；遵守 HTML 標記約定；不能從網路拿文字或數字 |
 | N8 渲染檢查 | 程式 `check_render.py`＋全新 subagent（[prompt](prompts/review_N8_render.md)） | HTML、截圖、逐頁稿 | `08_render_check.json`、`08_review.json`、`screenshots/` | 只判定 |
 | N9 交件 | 主流程 | 全部成品與紀錄 | `deck/README.md`、`logs/run_<id>.md` | 不改成品 |
 
@@ -206,5 +206,6 @@ AI 審查員只輸出 `pass/fail`、逐項判定與問題清單，並建議錯�
 | v1 | 2026-11-13 | 初版 |
 | v1（修正） | 2026-11-13 | 第一次執行時 N3 誤判：`common.py` 的數字規則把全形逗號都當千分位（「第 3，12–17 歲」→ 312）。改成只認「逗號後剛好 3 位數」。屬檢查程式 bug，版本不變 |
 | v1（修正） | 2026-11-14 | 第一次執行時 N8 誤判：`check_render.py` 的 Google Fonts 白名單要求網址有結尾斜線，`<link rel="preconnect" href="https://fonts.gstatic.com">` 被當成外部檔案。改成允許沒有路徑。屬檢查程式 bug，版本不變 |
+| v1（調整） | 2026-11-14 | 第一次執行的 U9，使用者要求「讓數字更有張力」：N7 可以用 CSS／SVG 自製數字視覺，也可以上網找免授權情境照（base64 內嵌、只當裝飾、來源寫進 `07_image_credits.json`）。這是 graph 規則改變，為了不把同一次執行拆成兩個版本，這次執行仍記為 v1；下一版正式改版時併入 |
 
 改版時：修改本檔、config、checks 或 prompts → 把 `config.json` 的 `graph_version` 改成新版本 → 在上表加一列 → commit → `git tag graph-v2`。用 `python checks/compare.py` 比較各版本的紀錄，用 `git diff graph-v1 graph-v2 -- deck/` 看 graph 改了什麼。

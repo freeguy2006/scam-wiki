@@ -124,7 +124,8 @@ def run():
     # --- 靜態檢查 ---
     ext_js = re.findall(r"<script[^>]+src=[\"']([^\"']+)", raw)
     ext_css = [h for h in re.findall(r"<link[^>]+href=[\"'](https?://[^\"']+)", raw)
-               if not re.match(r"https://fonts\.(googleapis|gstatic)\.com/", h)]
+               # preconnect 的 href 沒有結尾斜線（https://fonts.gstatic.com），也要放行
+               if not re.match(r"https://fonts\.(googleapis|gstatic)\.com(/|$)", h)]
     checks.append(item("單一 HTML 檔（無外部 JS／CSS，字型除外）", not ext_js and not ext_css,
                        f"外部檔案：{ext_js + ext_css}" if ext_js or ext_css else "", "結構缺段", "N7"))
     m = re.search(r"<html[^>]*data-source-base=[\"']([^\"']*)[\"']", raw)

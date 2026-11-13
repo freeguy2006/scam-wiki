@@ -204,5 +204,6 @@ AI 審查員只輸出 `pass/fail`、逐項判定與問題清單，並建議錯�
 | 版本 | 日期 | 改了什麼、為什麼 |
 |---|---|---|
 | v1 | 2026-11-13 | 初版 |
+| v1（修正） | 2026-11-13 | 第一次執行時 N3 誤判：`common.py` 的數字規則把全形逗號都當千分位（「第 3，12–17 歲」→ 312）。改成只認「逗號後剛好 3 位數」。屬檢查程式 bug，版本不變 |
 
 改版時：修改本檔、config、checks 或 prompts → 把 `config.json` 的 `graph_version` 改成新版本 → 在上表加一列 → commit → `git tag graph-v2`。用 `python checks/compare.py` 比較各版本的紀錄，用 `git diff graph-v1 graph-v2 -- deck/` 看 graph 改了什麼。

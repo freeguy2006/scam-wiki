@@ -56,7 +56,8 @@ def norm(s):
     return re.sub(r"\s+", "", s)
 
 
-NUM = re.compile(r"\d+(?:[.,]\d+)*")
+# 千分位只認「逗號後剛好 3 位數」，避免「第 3，12–17 歲」被黏成 312
+NUM = re.compile(r"\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?")
 ROC_YEAR = re.compile(r"(?<![\d.])(1[01]\d)\s*年")
 ROC_WITH_AD = re.compile(r"(?<![\d.])(1[01]\d)\s*年\s*[(]\s*(\d{4})\s*[)]")
 

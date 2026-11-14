@@ -10,7 +10,8 @@ import argparse
 
 import log_event
 from common import (CARD_ID, PREV, WORK, cfg, finish, item, load_json, load_scope,
-                    norm, numbers, utf8_stdout, wiki_pages, wiki_sections, year_aliases)
+                    norm, numbers, numbers_with_unit, plain, table_rows, utf8_stdout, wiki_pages, wiki_sections,
+                    year_aliases)
 
 
 def _repeat_shortage(seg_names):
@@ -69,6 +70,21 @@ def run():
     checks.append(item("原句逐字出現在 wiki", not not_verbatim, "不符：" + "、".join(not_verbatim) if not_verbatim else "",
                        "缺來源", "N3"))
     checks.append(item("白話句數字都在原句裡", not num_bad, "、".join(num_bad), "數字不符", "N3"))
+
+    # v2：數字的口徑寫在表格第一欄。v1 的摘要句漏掉「轉移 50% 款項」到 N6 才發現，
+    # 這裡要求：卡片數字若是同頁某表格列的數值，必須有卡片抄下那一列（帶出指標名稱）。
+    no_scope = []
+    for k in cards:
+        page = k.get("page")
+        if page not in pages or page not in selected:
+            continue
+        same_page = [norm(x.get("quote", "")) for x in cards if x.get("page") == page]
+        for first, value, _ in table_rows(pages[page]):
+            hit = numbers_with_unit(k.get("quote", "")) & numbers_with_unit(value)
+            if hit and not any(norm(first) in q for q in same_page):
+                no_scope.append(f"{k.get('id')} 的 {'、'.join(sorted(hit))} → 缺表格列「{plain(first)}」")
+    no_scope = list(dict.fromkeys(no_scope))
+    checks.append(item("數字附上表格口徑", not no_scope, "；".join(no_scope), "扭曲原意", "N3"))
 
     short = []
     for s in c["segments"]:

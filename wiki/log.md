@@ -76,3 +76,7 @@
 - 新增：deck/graph.md（流程圖、節點權限、檢查方式、退回表、局部重跑、紀錄欄位、執行步驟）、deck/config.json、deck/prompts/（5 個生成節點＋3 個審查員指令）、deck/checks/（N2/N3/N4/N5/N8 程式檢查、紀錄、局部重跑、版本比較、來源網址切換）
 - 修改：AGENTS.md 新增 §10 簡報 workflow
 - 備註：依 8 題訪談與使用者三點修改（局部重跑、測驗遵守來源規則、來源網址可設定）建立；Playwright 以系統 Chrome 執行並通過自我測試；尚未產生簡報
+
+## [2026-11-14] setup | 簡報 Graph workflow 改版 v2
+- 修改：deck/graph.md、deck/config.json、deck/checks/（check_retrieval、check_evidence、common、log_event）、deck/prompts/
+- 備註：依第 1 次執行紀錄把晚發現的檢查往前移：N2 檢查手法頁有沒有案例（原本 N4 才發現）、N3 檢查數字要附表格口徑（原本 N6 才發現）；另讓審查員讀 config、重審先複查上一輪問題、修 log_event 下一步、N7 只留封面照

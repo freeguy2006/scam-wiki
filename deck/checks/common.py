@@ -73,6 +73,17 @@ def numbers(s):
     return out
 
 
+NUM_UNIT = re.compile(rf"({NUM.pattern})\s*([%％一-鿿])")
+
+
+def numbers_with_unit(s):
+    """數字連同緊接的單位字（6.29分鐘→「6.29分」、47 億→「47億」），避免「6 月」和「6%」被當成同一個數。"""
+    out = set()
+    for n, u in NUM_UNIT.findall(unicodedata.normalize("NFKC", s)):
+        out.add(n.replace(",", "") + u)
+    return out
+
+
 def year_aliases(nums):
     """民國年與西元年互相視為同一個數字（114 ⇄ 2025）。"""
     extra = set()
@@ -130,6 +141,31 @@ def wiki_sections(path):
         elif cur is not None:
             sections[cur].append(line)
     return {k: "\n".join(v) for k, v in sections.items()}
+
+
+CASE_HINT = re.compile(r"案例|被騙[^。\n]{0,8}\d")
+
+
+def has_case(path):
+    """手法頁有沒有具體案例：出現「案例」字樣，或「被騙 400 萬餘元」這類金額描述。"""
+    return bool(CASE_HINT.search((REPO / path).read_text("utf-8")))
+
+
+def table_rows(path):
+    """wiki 頁面裡的表格列 → [(第一欄, 第二欄, 整列原文)]，跳過表頭與分隔列。"""
+    rows = []
+    lines = (REPO / path).read_text("utf-8").splitlines()
+    for i, line in enumerate(lines):
+        if not line.lstrip().startswith("|"):
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) < 2 or set(cells[0]) <= set("-: "):
+            continue
+        nxt = lines[i + 1] if i + 1 < len(lines) else ""
+        if re.match(r"^\s*\|[\s:|-]+\|\s*$", nxt):  # 下一列是分隔列 → 這列是表頭
+            continue
+        rows.append((cells[0], cells[1], line))
+    return rows
 
 
 def link_href(base, wiki_path):

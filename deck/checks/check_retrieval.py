@@ -4,7 +4,7 @@
 """
 import argparse
 
-from common import WORK, cfg, finish, item, load_json, utf8_stdout, wiki_pages
+from common import WORK, cfg, finish, has_case, item, load_json, utf8_stdout, wiki_pages
 
 
 def run():
@@ -54,6 +54,16 @@ def run():
     lack = [p for p in c["required_pages"] if p not in all_selected]
     checks.append(item("必含頁面", not lack, f"缺少：{'、'.join(lack)}" if lack else "、".join(c["required_pages"]),
                        "覆蓋不足", "N1"))
+
+    # v2：需求卡要求手法頁「一個案例」。v1 到 N4 審查才發現 wiki 沒有，這裡提前用程式確認。
+    # 必含手法沒得換，不擋，記進 no_case 讓 N4 一開始就知道要用劇本代替。
+    no_case = [p for p in tactics if not has_case(pages[p])]
+    swap = [p for p in no_case if p not in c["required_pages"]]
+    keep = [p for p in no_case if p in c["required_pages"]]
+    detail = f"沒有案例，請換有案例的手法：{'、'.join(swap)}" if swap else (
+        f"必含手法沒有案例（N4 改用劇本示範）：{'、'.join(keep)}" if keep else "每個手法頁都有案例")
+    checks.append(item("手法頁有案例", not swap, detail, "覆蓋不足", "N1"))
+    coverage["no_case"] = keep
     return checks, coverage
 
 

@@ -6,6 +6,7 @@
 - `deck/work/00_brief.md`
 - `deck/work/03_evidence.json`
 - `deck/config.json`
+- `deck/work/02_coverage.json`（只看 `coverage.no_case`：wiki 沒有案例的必含手法）
 
 ## 不能做
 - **不能讀 wiki**、`raw/`、不能上網
@@ -16,7 +17,7 @@
 - 段落順序固定：cover → goals → concepts → tactics → redflags → response → quiz → summary；各段頁數依 config
 - 總頁數在 config 的 `slides_min`～`slides_max`
 - 每頁至少引用 1 張卡（封面、學習目標、總結也一樣，例如封面用一個驚人數字）
-- 手法段每頁一種手法，用「劇本 → 案例」講清楚
+- 手法段每頁一種手法，用「劇本 → 案例」講清楚；`no_case` 裡的手法在目的寫明「wiki 無具體案例，以劇本情境逐步示範代替」
 - 測驗頁寫「題數」，全部測驗頁合計 config 的 `quiz_min`～`quiz_max` 題；題目要能用卡片內容出題
 
 ## 輸出：`deck/work/04_outline.md`

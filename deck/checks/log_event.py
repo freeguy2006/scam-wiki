@@ -112,6 +112,10 @@ def record(node, checker, checks, result, routed_to=None, reason=None,
             next_node = next_node or routed_to
     elif result == "pass":
         next_node = next_node or c["next"].get(node)
+        # 退回 N3 之後，U4 已經通過過的大綱不再請使用者確認（graph.md 第四節）
+        u4 = [e for e in events if e["node"] == "U4"]
+        if node == "N4" and next_node == "U4" and u4 and u4[-1]["result"] == "pass":
+            next_node = c["next"]["U4"]
 
     if reason is None and failed:
         reason = "；".join(f"{x['item']}：{x.get('detail', '')}".rstrip("：") for x in failed)[:500]

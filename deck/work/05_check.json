@@ -1,0 +1,75 @@
+{
+  "node": "N5",
+  "checker": "script",
+  "result": "pass",
+  "checks": [
+    {
+      "item": "頁數 14～19",
+      "pass": true,
+      "detail": "目前 19 頁"
+    },
+    {
+      "item": "和大綱一致（頁碼、段落、順序）",
+      "pass": true
+    },
+    {
+      "item": "每頁至少引用 1 張卡",
+      "pass": true
+    },
+    {
+      "item": "每句都有卡號或補充標記",
+      "pass": true
+    },
+    {
+      "item": "卡號都存在",
+      "pass": true
+    },
+    {
+      "item": "只用大綱分配給該頁的卡",
+      "pass": true
+    },
+    {
+      "item": "來源列 = 引用卡片的 wiki 頁面",
+      "pass": true
+    },
+    {
+      "item": "數字都出現在引用的卡片裡",
+      "pass": true
+    },
+    {
+      "item": "民國年附西元且換算正確",
+      "pass": true
+    },
+    {
+      "item": "正文 ≤ 80 字",
+      "pass": true
+    },
+    {
+      "item": "補充規則",
+      "pass": true,
+      "detail": "共 0 則"
+    },
+    {
+      "item": "測驗 3～5 題，且只在測驗頁",
+      "pass": true,
+      "detail": "目前 5 題"
+    },
+    {
+      "item": "測驗題目與解答都有卡號",
+      "pass": true
+    },
+    {
+      "item": "測驗選項格式",
+      "pass": true
+    },
+    {
+      "item": "測驗不使用補充內容",
+      "pass": true
+    },
+    {
+      "item": "範圍外頁面未變動",
+      "pass": true,
+      "detail": "只重寫 ['S01', 'S05', 'S11', 'S17a', 'S18']，其餘 14 頁不動"
+    }
+  ]
+}

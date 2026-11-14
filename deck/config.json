@@ -18,7 +18,7 @@
     {"id": "summary",  "name": "總結",       "min_slides": 1, "max_slides": 1}
   ],
   "slides_min": 14,
-  "slides_max": 18,
+  "slides_max": 19,
   "tactics_min_distinct": 4,
   "required_pages": ["假網拍", "解除分期付款"],
 

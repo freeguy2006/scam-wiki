@@ -1,0 +1,92 @@
+{
+  "node": "N2",
+  "checker": "script",
+  "result": "pass",
+  "checks": [
+    {
+      "item": "檔案格式",
+      "pass": true
+    },
+    {
+      "item": "教學段落齊全",
+      "pass": true,
+      "detail": "['concepts', 'tactics', 'redflags', 'response']"
+    },
+    {
+      "item": "頁面都存在",
+      "pass": true
+    },
+    {
+      "item": "每段頁數足夠",
+      "pass": true,
+      "detail": "concepts 5 頁；tactics 8 頁；redflags 9 頁；response 9 頁"
+    },
+    {
+      "item": "手法至少 4 種",
+      "pass": true,
+      "detail": "目前 6 種：假網拍、解除分期付款、中獎通知、假求職、假投資、色情應召詐騙"
+    },
+    {
+      "item": "必含頁面",
+      "pass": true,
+      "detail": "假網拍、解除分期付款"
+    }
+  ],
+  "coverage": {
+    "concepts": {
+      "pages": [
+        "165打詐儀錶板統計",
+        "新北市詐欺被害統計",
+        "年輕人最常遇到的詐騙",
+        "詐騙贓款流向統計",
+        "LINE"
+      ],
+      "count": 5,
+      "min": 2
+    },
+    "tactics": {
+      "pages": [
+        "假網拍",
+        "解除分期付款",
+        "中獎通知",
+        "假求職",
+        "假投資",
+        "色情應召詐騙",
+        "年輕人最常遇到的詐騙",
+        "Threads"
+      ],
+      "count": 8,
+      "min": 4
+    },
+    "redflags": {
+      "pages": [
+        "防詐五不",
+        "假網拍",
+        "解除分期付款",
+        "中獎通知",
+        "假求職",
+        "假投資",
+        "LINE",
+        "境外來電偽冒號碼",
+        "釣魚連結"
+      ],
+      "count": 9,
+      "min": 2
+    },
+    "response": {
+      "pages": [
+        "165反詐騙諮詢專線",
+        "165打詐儀錶板",
+        "防詐五不",
+        "防詐四不",
+        "警示帳戶",
+        "假網拍",
+        "解除分期付款",
+        "釣魚連結",
+        "人頭帳戶"
+      ],
+      "count": 9,
+      "min": 2
+    }
+  }
+}

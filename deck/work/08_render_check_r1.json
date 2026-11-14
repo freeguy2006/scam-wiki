@@ -1,0 +1,83 @@
+{
+  "node": "N8",
+  "checker": "script",
+  "result": "fail",
+  "checks": [
+    {
+      "item": "單一 HTML 檔（無外部 JS／CSS，字型除外）",
+      "pass": false,
+      "detail": "外部檔案：['https://fonts.googleapis.com', 'https://fonts.gstatic.com']",
+      "error_type": "結構缺段",
+      "origin": "N7"
+    },
+    {
+      "item": "html 標記 data-source-base 與設定一致",
+      "pass": true,
+      "detail": "設定 ../wiki/，HTML ../wiki/"
+    },
+    {
+      "item": "沒有巢狀 section",
+      "pass": true
+    },
+    {
+      "item": "頁數與順序和稿一致",
+      "pass": true,
+      "detail": "19 頁"
+    },
+    {
+      "item": "鍵盤翻頁與翻頁按鈕",
+      "pass": true
+    },
+    {
+      "item": "沒有 JS 錯誤",
+      "pass": true
+    },
+    {
+      "item": "文字不溢出（桌機 1280×720、手機 390×844）",
+      "pass": false,
+      "detail": "S16 mobile 顯示解答後：垂直 div「Threads 貼文「手」、垂直 div「剛下單就接到客服來電說誤」、垂直 div「剛下單就接到假客服來電說」、垂直 p「剛下單就接到假客服來電說」、垂直 div「出處：解除分期付款」、垂直 a「解除分期付款」；S17 mobile 顯示解答後：垂直 div「沒參加過任何抽獎卻收到中」、垂直 div「Facebook 社團打」、垂直 div「找工作不交保證金，不交出」、垂直 p「找工作不交保證金，不交出」、垂直 div「出處：假求職」、垂直 a「假求職」",
+      "error_type": "版面溢出",
+      "origin": "N7",
+      "slides": [
+        "S16",
+        "S17"
+      ]
+    },
+    {
+      "item": "HTML 文字和稿一致",
+      "pass": true
+    },
+    {
+      "item": "沒有多出稿以外的文字（容許 20 字裝飾）",
+      "pass": true
+    },
+    {
+      "item": "沒有多出稿以外的數字",
+      "pass": true
+    },
+    {
+      "item": "補充有標示",
+      "pass": true
+    },
+    {
+      "item": "每頁來源列正確且可連到 wiki",
+      "pass": true
+    },
+    {
+      "item": "講者備註預設隱藏",
+      "pass": true
+    },
+    {
+      "item": "測驗可點選並顯示解答",
+      "pass": true
+    },
+    {
+      "item": "測驗解答顯示出處",
+      "pass": true
+    },
+    {
+      "item": "相對路徑連結指向存在的檔案",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+[
+  {"slide": "S01", "url": "https://www.pexels.com/photo/man-holding-a-mobile-phone-in-the-dark-19949818/", "author": "Jaroslav Maléř", "license": "Pexels License", "note": "縮至 1280 寬、JPEG q70、提亮後 base64 內嵌"},
+  {"slide": "S06", "url": "https://www.pexels.com/photo/brown-cardboard-box-beside-white-wooden-door-6170455/", "author": "Tima Miroshnichenko", "license": "Pexels License", "note": "裁切下半部、箱上標籤文字局部模糊"},
+  {"slide": "S07", "url": "https://www.pexels.com/photo/person-pressing-keys-of-an-atm-5497951/", "author": "Eduardo Soares", "license": "Pexels License", "note": "整張高斯模糊使鍵盤數字不可讀"},
+  {"slide": "S08", "url": "https://commons.wikimedia.org/wiki/File:Brown_paper_gift_(Unsplash).jpg", "author": "Annie Spratt", "license": "CC0 1.0 (Wikimedia Commons, Unsplash CC0 collection)"},
+  {"slide": "S09", "url": "https://commons.wikimedia.org/wiki/File:Hand-laptop-notebook-typing_(23698140194).jpg", "author": "www.Pixel.la Free Stock Photos", "license": "CC0 1.0 (Wikimedia Commons)"},
+  {"slide": "S10", "url": "https://www.pexels.com/photo/candlestick-chart-displaying-market-trends-29611783/", "author": "Arturo A", "license": "Pexels License", "note": "裁掉右側座標數字"},
+  {"slide": "S11", "url": "https://www.pexels.com/photo/a-person-using-a-cellphone-9783811/", "author": "Ron Lach", "license": "Pexels License"}
+]

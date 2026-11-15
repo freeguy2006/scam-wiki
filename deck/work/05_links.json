@@ -1,61 +1,61 @@
 {
-  "source_base_url": "../wiki/",
+  "source_base_url": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/",
   "pages": {
     "165打詐儀錶板統計": {
       "wiki_path": "統計/165打詐儀錶板統計.md",
-      "href": "../wiki/統計/165打詐儀錶板統計.md"
+      "href": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/統計/165打詐儀錶板統計.md"
     },
     "新北市詐欺被害統計": {
       "wiki_path": "統計/新北市詐欺被害統計.md",
-      "href": "../wiki/統計/新北市詐欺被害統計.md"
+      "href": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/統計/新北市詐欺被害統計.md"
     },
     "年輕人最常遇到的詐騙": {
       "wiki_path": "分析/年輕人最常遇到的詐騙.md",
-      "href": "../wiki/分析/年輕人最常遇到的詐騙.md"
+      "href": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/分析/年輕人最常遇到的詐騙.md"
     },
     "詐欺犯罪危害防制條例": {
       "wiki_path": "概念/詐欺犯罪危害防制條例.md",
-      "href": "../wiki/概念/詐欺犯罪危害防制條例.md"
+      "href": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/概念/詐欺犯罪危害防制條例.md"
     },
     "假網拍": {
       "wiki_path": "手法/假網拍.md",
-      "href": "../wiki/手法/假網拍.md"
+      "href": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/手法/假網拍.md"
     },
     "解除分期付款": {
       "wiki_path": "手法/解除分期付款.md",
-      "href": "../wiki/手法/解除分期付款.md"
+      "href": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/手法/解除分期付款.md"
     },
     "中獎通知": {
       "wiki_path": "手法/中獎通知.md",
-      "href": "../wiki/手法/中獎通知.md"
+      "href": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/手法/中獎通知.md"
     },
     "假求職": {
       "wiki_path": "手法/假求職.md",
-      "href": "../wiki/手法/假求職.md"
+      "href": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/手法/假求職.md"
     },
     "防詐五不": {
       "wiki_path": "概念/防詐五不.md",
-      "href": "../wiki/概念/防詐五不.md"
+      "href": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/概念/防詐五不.md"
     },
     "防詐四不": {
       "wiki_path": "概念/防詐四不.md",
-      "href": "../wiki/概念/防詐四不.md"
+      "href": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/概念/防詐四不.md"
     },
     "LINE": {
       "wiki_path": "平台/LINE.md",
-      "href": "../wiki/平台/LINE.md"
+      "href": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/平台/LINE.md"
     },
     "165反詐騙諮詢專線": {
       "wiki_path": "機構/165反詐騙諮詢專線.md",
-      "href": "../wiki/機構/165反詐騙諮詢專線.md"
+      "href": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/機構/165反詐騙諮詢專線.md"
     },
     "165打詐儀錶板": {
       "wiki_path": "機構/165打詐儀錶板.md",
-      "href": "../wiki/機構/165打詐儀錶板.md"
+      "href": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/機構/165打詐儀錶板.md"
     },
     "警示帳戶": {
       "wiki_path": "概念/警示帳戶.md",
-      "href": "../wiki/概念/警示帳戶.md"
+      "href": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/概念/警示帳戶.md"
     }
   }
 }

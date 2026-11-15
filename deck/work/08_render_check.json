@@ -10,7 +10,7 @@
     {
       "item": "html 標記 data-source-base 與設定一致",
       "pass": true,
-      "detail": "設定 ../wiki/，HTML ../wiki/"
+      "detail": "設定 https://github.com/freeguy2006/scam-wiki/blob/main/wiki/，HTML https://github.com/freeguy2006/scam-wiki/blob/main/wiki/"
     },
     {
       "item": "沒有巢狀 section",
@@ -63,10 +63,6 @@
     },
     {
       "item": "測驗解答顯示出處",
-      "pass": true
-    },
-    {
-      "item": "相對路徑連結指向存在的檔案",
       "pass": true
     }
   ]

@@ -1,7 +1,7 @@
 {
   "graph_version": "v2",
   "language": "zh-Hant",
-  "source_base_url": "../wiki/",
+  "source_base_url": "https://github.com/freeguy2006/scam-wiki/blob/main/wiki/",
   "browser_channel": "chrome",
 
   "max_rounds_per_loop": 3,

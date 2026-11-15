@@ -1,0 +1,49 @@
+{
+  "node": "N4",
+  "checker": "script",
+  "result": "pass",
+  "checks": [
+    {
+      "item": "頁碼格式與不重複",
+      "pass": true
+    },
+    {
+      "item": "頁數 14～19",
+      "pass": true,
+      "detail": "目前 19 頁"
+    },
+    {
+      "item": "段落名稱正確",
+      "pass": true
+    },
+    {
+      "item": "教學順序（目標→概念→手法→紅旗→應對→測驗→總結）",
+      "pass": true
+    },
+    {
+      "item": "各段頁數",
+      "pass": true
+    },
+    {
+      "item": "每頁至少引用 1 張卡",
+      "pass": true
+    },
+    {
+      "item": "卡號都存在",
+      "pass": true
+    },
+    {
+      "item": "測驗 3～5 題",
+      "pass": true,
+      "detail": "目前 5 題"
+    },
+    {
+      "item": "每頁有教學目的",
+      "pass": true
+    },
+    {
+      "item": "範圍外頁面的大綱未變動",
+      "pass": true
+    }
+  ]
+}

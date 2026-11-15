@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-source-base="../wiki/">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>大學生防詐指南：認出手法、停下來、查證</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b1020; --bg2:#121a30; --card:#161f38; --line:#273252;
+  --ink:#f3f5fb; --ink2:#b7c0d8; --mute:#7f8bab;
+  --accent:#f5b841;
+  --font:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased}
+body{overflow:hidden;position:relative}
+a{color:inherit}
+.slide{position:absolute;inset:0;display:none;background:
+  radial-gradient(1200px 600px at 85% -10%, color-mix(in srgb,var(--accent) 18%,transparent), transparent 60%),
+  linear-gradient(160deg,var(--bg) 0%,var(--bg2) 100%);}
+.slide.active{display:block}
+.slide[data-segment="cover"]{--accent:#f5b841}
+.slide[data-segment="goals"]{--accent:#7cc4ff}
+.slide[data-segment="concepts"]{--accent:#7cc4ff}
+.slide[data-segment="tactics"]{--accent:#ff8a65}
+.slide[data-segment="redflags"]{--accent:#ff5c7a}
+.slide[data-segment="response"]{--accent:#3ddc97}
+.slide[data-segment="quiz"]{--accent:#c084fc}
+.slide[data-segment="summary"]{--accent:#f5b841}
+
+.frame{position:relative;height:100%;display:flex;flex-direction:column;padding:40px 64px 72px;overflow:hidden}
+.deco-wrap{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.deco-ring{position:absolute;right:0;top:0;width:420px;height:420px;border-radius:50%;transform:translate(30%,-34%);
+  border:28px solid color-mix(in srgb,var(--accent) 14%,transparent);pointer-events:none}
+.head{flex:0 0 auto;position:relative}
+.eyebrow{display:inline-block;font-size:13px;letter-spacing:.3em;font-weight:700;color:var(--accent);
+  border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);padding:4px 12px;border-radius:999px;margin-bottom:14px}
+.title{font-size:36px;line-height:1.25;font-weight:900;letter-spacing:.01em}
+.title .lead{color:var(--accent)}
+.body{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center;padding:18px 0 8px}
+
+.blocks{list-style:none;display:grid;gap:14px}
+.blocks.one{grid-template-columns:1fr;max-width:980px}
+.blocks.two{grid-template-columns:1fr 1fr}
+.block{display:flex;gap:14px;align-items:flex-start;background:color-mix(in srgb,var(--card) 85%,transparent);
+  border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:14px;padding:16px 20px}
+.block .dot{flex:0 0 10px;width:10px;height:10px;margin-top:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 22%,transparent)}
+.block p{font-size:21px;line-height:1.5;font-weight:500;overflow-wrap:anywhere}
+.blocks.one .block p{font-size:24px}
+.block .lead{color:var(--accent);font-weight:900}
+.caveat{margin-top:14px;font-size:15px;color:var(--mute);padding-left:4px}
+
+.slide[data-segment="cover"] .frame{justify-content:center}
+.slide[data-segment="cover"] .title{font-size:52px;line-height:1.2;max-width:1000px}
+.slide[data-segment="cover"] .block{background:transparent;border:none;border-left:4px solid var(--accent);border-radius:0;padding:4px 0 4px 18px}
+.slide[data-segment="cover"] .block .dot{display:none}
+.slide[data-segment="cover"] .blocks{gap:12px}
+.slide[data-segment="cover"] .blocks.one .block p{font-size:22px;color:var(--ink2)}
+.slide[data-segment="summary"] .blocks.two .block p{font-size:22px}
+
+.quizzes{display:grid;gap:18px}
+.quizzes.pair{grid-template-columns:1fr 1fr}
+.quizzes.single{grid-template-columns:1fr}
+.quiz{background:color-mix(in srgb,var(--card) 85%,transparent);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.question{font-size:17px;line-height:1.5;font-weight:700;margin-bottom:12px}
+.options{display:grid;gap:8px}
+.opt{font:inherit;font-size:15.5px;line-height:1.4;text-align:left;color:var(--ink);background:#1d2742;border:1px solid var(--line);
+  border-radius:10px;padding:9px 14px;cursor:pointer;transition:.15s}
+.opt:hover{border-color:var(--accent)}
+.quiz.done .opt{cursor:default;opacity:.55}
+.quiz.done .opt[data-correct="true"]{opacity:1;border-color:#3ddc97;background:color-mix(in srgb,#3ddc97 18%,#1d2742)}
+.quiz.done .opt.picked[data-correct="false"]{opacity:1;border-color:#ff5c7a;background:color-mix(in srgb,#ff5c7a 18%,#1d2742)}
+.answer{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
+.answer-text{font-size:14px;line-height:1.55;color:var(--ink2)}
+.answer-sources{margin-top:6px;font-size:12.5px;color:var(--mute)}
+.answer-sources a{color:var(--accent)}
+
+.sources{flex:0 0 auto;font-size:13px;color:var(--mute);padding-top:10px;border-top:1px solid var(--line);overflow-wrap:anywhere}
+.sources a{color:var(--ink2);text-decoration:none;border-bottom:1px dotted var(--mute)}
+.sources a:hover{color:var(--accent)}
+.notes{position:absolute;left:64px;right:64px;bottom:76px;background:#fff8e1;color:#3b2f00;padding:14px 18px;border-radius:12px;
+  font-size:14px;line-height:1.55;box-shadow:0 10px 40px rgba(0,0,0,.45);max-height:45%;overflow:auto;z-index:5}
+.notes[hidden]{display:none}
+
+.hud{position:fixed;left:0;right:0;bottom:0;height:56px;display:flex;align-items:center;gap:14px;padding:0 20px;
+  background:rgba(8,12,26,.85);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:10}
+.hud .bar{flex:1;height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+.hud .bar i{display:block;height:100%;width:0;background:var(--accent,#f5b841);transition:width .3s}
+.hud .count{font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums;min-width:64px;text-align:center}
+.hud button{font:inherit;font-size:14px;color:var(--ink);background:#1d2742;border:1px solid var(--line);border-radius:8px;padding:7px 14px;cursor:pointer}
+.hud button:hover{border-color:#f5b841}
+.hud .hint{font-size:12px;color:var(--mute)}
+
+@media (max-width:900px){
+  :root{--hud-h:52px;--hud-gap:calc(var(--hud-h) + env(safe-area-inset-bottom,0px) + 20px)}
+  body{overflow:hidden}
+  .slide{overflow-y:auto;overflow-x:hidden;height:100%;-webkit-overflow-scrolling:touch;scroll-padding-bottom:var(--hud-gap)}
+  .frame{padding:22px 16px var(--hud-gap);overflow:visible;height:auto;min-height:100%}
+  .answer{scroll-margin-bottom:var(--hud-gap)}
+  .sources{padding-bottom:4px}
+  .notes{position:sticky;bottom:66px}
+  .deco-ring{width:260px;height:260px;border-width:18px;transform:translate(45%,-45%)}
+  .eyebrow{font-size:11px;margin-bottom:10px}
+  .title{font-size:26px}
+  .slide[data-segment="cover"] .title{font-size:32px}
+  .body{justify-content:flex-start;padding:14px 0 6px}
+  .blocks.one,.blocks.two{grid-template-columns:1fr;gap:10px}
+  .block{padding:12px 14px;gap:10px}
+  .block p,.blocks.one .block p,.slide[data-segment="cover"] .blocks.one .block p,.slide[data-segment="summary"] .blocks.two .block p{font-size:17px}
+  .block .dot{margin-top:8px}
+  .caveat{font-size:13.5px}
+  .quizzes.pair{grid-template-columns:1fr}
+  .quiz{padding:14px}
+  .question{font-size:16px}
+  .opt{font-size:15px}
+  .notes{left:12px;right:12px;bottom:66px;max-height:50%}
+  .hud{height:52px;padding:0 12px;gap:10px}
+  .hud .hint{display:none}
+}
+/* ===== 封面情境照與大數字（U9） ===== */
+.has-photo .head,.has-photo .body,.has-photo .sources{position:relative;z-index:1}
+.photo{position:absolute;inset:0;margin:0;z-index:0;overflow:hidden;pointer-events:none}
+.photo img{display:block;width:100%;height:100%;object-fit:cover;opacity:.95;filter:saturate(1.05)}
+.photo::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(90deg,rgba(11,16,32,.94) 0%,rgba(11,16,32,.78) 46%,rgba(11,16,32,.08) 100%),
+  linear-gradient(0deg,rgba(11,16,32,.9) 0%,rgba(11,16,32,0) 50%)}
+.stat-num{display:inline-block;font-weight:900;color:var(--accent);line-height:1;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;text-shadow:0 0 30px color-mix(in srgb,var(--accent) 45%,transparent)}
+.stat-num i{font-style:normal;font-size:.36em;font-weight:700;margin-left:.14em;color:var(--ink);letter-spacing:0;text-shadow:none}
+.hero-num{font-size:150px;margin:-10px 0 4px}
+@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.9)}to{opacity:1;transform:none}}
+.slide.active .stat-num{animation:pop .8s cubic-bezier(.2,.8,.2,1) both}
+@media (prefers-reduced-motion:reduce){.stat-num{animation:none!important}}
+@media (max-width:900px){
+  .photo img{opacity:.8}
+  .photo::after{background:linear-gradient(180deg,rgba(11,16,32,.3) 0%,rgba(11,16,32,.88) 34%,rgba(11,16,32,.97) 100%)}
+  .hero-num{font-size:88px;margin:0 0 4px}
+}
+</style>
+</head>
+<body>
+
+<section class="slide" data-slide="S01" data-segment="cover">
+  <div class="frame has-photo">
+    <figure class="photo" data-deco aria-hidden="true"><img src="data:image/jpeg;base64,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n6iAe+QZh2BBHes8s4QI999oADDCCCCCqCC+ye++DDHPd8iDMMMCyC9QPVBmPZlMMx8TWJyyyw++qTpe6yAkdNNd91BDf+uM97299994AUDCCCAGu6m2DDDDjD78TzcxBQgVlcaIF5PpVrRVQ4s1nS882DL20j96adH99195pBBXy+++9Ca2998gAEDCCCCW+qWDDjDN9t4DhME8OY4HxiVW+VVT3YFD98qDxDjLJ8+UMqeaAoH9995NJBDO++2956BS994AAEDCCCAS+q+DqH88DGD5c4NT85zSo95NeRlnjm+Tza4b0sMMlyWH6yyAAoV99999pBDe++e9uG6g9wAAEdDCCCAG+q+DLXCD5xxc+Z5JztmTu1wTP/7hLcXMhfbJ5NDySkFmqAARwH999999hDGAQ++9vi999oAAU9CCCHAA++yjDVCDB8wfBUVjN6RJytcdy6EPqAROqPg8I9R1aKjAAA5HMd99999BDP8AgAPvuttvQPQAANQgggEAgvjgw6lwvKfASdykFF+FqxcV5RKVD38+qDH8IfSYrhtAAMfTfffffffYQxtvvvvsgQZOuvaAAPQgggAAgACgww3wvAaKEOm/Vll2XJ2YvW5RQBa14TQxK7tvn9VAdmffffffddQQzuvvvvugTRmURfYAAPQgggAgglngx/8AxcOHj4uBQwMG+8Ys2oFFy0UrM3UqydlpHf749GEEH3F30kEMN6b4ZTHKGY7qmqH2gAAMIIICIIL36pe7xcHzf0fa6geAcJN4ZrR5UQvuEAeoYiVBg37764sEE9EnW2k2W1zzra6ID6IL14r2gAAMIIIAIIKoMJPzyOXwGExGEAMQvB5n4Vrl1XSiXxJI31iZH7777D67777p5h77LaIQg0A4Bi57D4P2wAMMIIIgIL6oMMPwKMHxWn1WQsIEHBgolrpqmVLHzl2oyEBr77zyj33DZKN74o8rLIm4xmChC34jroP3gAAMIIIIILb4oMPErSlaxJTO9/VLAcmF1xga4HY4BKdKSk4/7T5AD3335hLVnYEEFWEEH4XaKUCh4IH2gAMMIIKAIL76oMMWpSFa7s0bLnOtUPfP4Kl72KIAnTSteX733333332EHHFjZF33GEENV5+EGT774EH0AAMMIIIJa7L6oMJULy0FEm7z/GPXQYbB2GMO1iXXTj0U7D3333HHHEEE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" alt=""></figure>
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>封面</div>
+      <div class="hero-num" data-deco aria-hidden="true"><span class="stat-num">47<i>億</i></span></div>
+      <h1 class="title">一個月 47 億元：詐騙離你沒有那麼遠</h1>
+    </header>
+    <div class="body">
+<ul class="blocks one">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>2026 年 6 月全國詐騙財損 47 億元</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>轉進虛幣交易所的贓款，平均 6.29 分鐘就轉走一半</p></li>
+</ul>
+<p class="caveat">註：分鐘數只來自遠東商業銀行，非全國統計</p>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="統計/165打詐儀錶板統計.md" href="../wiki/統計/165打詐儀錶板統計.md">165打詐儀錶板統計</a>、<a data-wiki-path="統計/詐騙贓款流向統計.md" href="../wiki/統計/詐騙贓款流向統計.md">詐騙贓款流向統計</a></footer>
+    <aside data-notes hidden class="notes">開場先問同學：你覺得詐騙離自己多遠？2026 年 6 月一個月，全國詐騙財損 47 億元，光是假投資就占了三成以上。錢匯出去之後跑得多快？這個指標的定義是「轉移 50% 款項的平均時間」：轉進虛擬貨幣交易所的贓款，平均 6.29 分鐘就轉走一半（資料期間 2025-02-18 至 2026-06-23），比 ATM 提領快了約 19 倍。提醒：這組分鐘數只來自遠東商業銀行（國內虛幣交易所的主要合作銀行）一家，不是全國所有銀行的統計。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S02" data-segment="goals">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>學習目標</div>
+      <h1 class="title">看完這份簡報，你能做到三件事</h1>
+    </header>
+    <div class="body">
+<ul class="blocks one">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>一、知道詐騙有多大、為什麼大學生也是目標</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>二、認出至少四種常見手法，含假網拍與解除分期付款</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>三、可疑就先停下來，掛斷後自己撥 165 查證</p></li>
+</ul>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="分析/年輕人最常遇到的詐騙.md" href="../wiki/分析/年輕人最常遇到的詐騙.md">年輕人最常遇到的詐騙</a>、<a data-wiki-path="機構/165反詐騙諮詢專線.md" href="../wiki/機構/165反詐騙諮詢專線.md">165反詐騙諮詢專線</a></footer>
+    <aside data-notes hidden class="notes">三個學習目標。手法部分會講六種：假網拍、解除分期付款、中獎通知、假求職、假投資、色情應召詐騙。其中假網拍是年輕人的第一名；男女分流：女性第二名是解除分期付款，男性集中在虛擬遊戲詐騙和色情應召詐騙。最後一個目標最重要：遇到可疑狀況先停下來，正確做法是掛斷後自己撥打 165，再學會怎麼查證、找誰求助。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S03" data-segment="concepts">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>概念</div>
+      <h1 class="title"><b class="lead">詐騙現在有多大</b>：規模與趨勢</h1>
+    </header>
+    <div class="body">
+<ul class="blocks one">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>2026 年 6 月：財損 47 億元、11,437 件（年減 30%）</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>件數與財損自 2025 年 6 月起下降</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>件數多的手法和損失大的手法不同</p></li>
+</ul>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="統計/165打詐儀錶板統計.md" href="../wiki/統計/165打詐儀錶板統計.md">165打詐儀錶板統計</a></footer>
+    <aside data-notes hidden class="notes">規模：2026 年 6 月一個月，全國詐騙財損 47 億元，光是假投資就占了三成以上；單月受理 11,437 件，年減 30%。趨勢：刑事局表示，案件數與財損自 2025 年 6 月起逐漸下降；2026 年 6 月與前一年同月相比，件數減 30%、財損減 47%。重點：件數多的手法和損失大的手法並不相同——網路購物件數最多，但財損只占 7%；假交友（投資詐財）件數只占 8%，財損卻占 22%；假檢警件數沒進前五，財損卻排第 3。所以「被騙最多次」和「賠最多錢」的手法不一樣。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S04" data-segment="concepts">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>概念</div>
+      <h1 class="title">為什麼大學生也是目標</h1>
+    </header>
+    <div class="body">
+<ul class="blocks one">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>新北被害人數是幾年前的兩倍多；12–23 歲約占 18.5%，學生最多</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>假網拍第一名，男女手法不同</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>18 歲後出現假投資、中獎通知</p></li>
+</ul>
+<p class="caveat">註：資料僅新北市，勿推論全國</p>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="統計/新北市詐欺被害統計.md" href="../wiki/統計/新北市詐欺被害統計.md">新北市詐欺被害統計</a>、<a data-wiki-path="分析/年輕人最常遇到的詐騙.md" href="../wiki/分析/年輕人最常遇到的詐騙.md">年輕人最常遇到的詐騙</a></footer>
+    <aside data-notes hidden class="notes">新北市 2025 年有 3 萬 1,109 人被詐騙，是 2021 年的兩倍多；女性被害人一直比男性多。12–23 歲約占新北市詐欺被害人的 18.5%；各職業中，本國學生的被害人最多（11.50%）。假網拍是年輕人的第一名，12–17 歲女性被害人中將近一半（46.26%）是假網拍。男女分流：女性第二名是解除分期付款；男性集中在虛擬遊戲詐騙（12–17 歲 35%）和色情應召詐騙（約 15–16%）。18 歲以後開始出現假投資與中獎通知，各約 10–13%。提醒：只有新北市一個地區的年齡資料，不能直接推論到全國。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S05" data-segment="concepts">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>概念</div>
+      <h1 class="title">幾乎每種詐騙都有同一個動作：把你拉去 LINE</h1>
+    </header>
+    <div class="body">
+<ul class="blocks one">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>從原平台被轉到 LINE 私聊，由假客服接手</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>虛幣贓款平均 6.29 分鐘轉走一半，ATM 提領要 119.8 分鐘</p></li>
+</ul>
+<p class="caveat">註：分鐘數只來自遠東商業銀行，非全國統計</p>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="平台/LINE.md" href="../wiki/平台/LINE.md">LINE</a>、<a data-wiki-path="統計/詐騙贓款流向統計.md" href="../wiki/統計/詐騙贓款流向統計.md">詐騙贓款流向統計</a></footer>
+    <aside data-notes hidden class="notes">這一頁建立「詐騙的基本樣貌」：不管哪種手法，詐團都會把被害人從簡訊、社群平台、購物平台、交友軟體或詐騙電話轉到 LINE 私下對話，再由假客服、假專員或群組裡的「理財導師」接手。為什麼要在匯款前停下來？看「轉移 50% 款項的平均時間」這個指標：轉進虛擬貨幣交易所的贓款，平均 6.29 分鐘就轉走一半；用 ATM 提領的贓款則要 119.8 分鐘才轉走一半，前者比 ATM 提領快了約 19 倍（資料期間 2025-02-18 至 2026-06-23），錢一出去就很難追回。再次提醒：這組贓款流向數字只來自遠東商業銀行（國內虛幣交易所的主要合作銀行）一家，不是全國所有銀行的統計。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S06" data-segment="tactics">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>手法與案例</div>
+      <h1 class="title"><b class="lead">手法一</b>：假網拍</h1>
+    </header>
+    <div class="body">
+<ul class="blocks two">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>低價或免費送當餌，加 LINE 傳假賣貨便</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>假客服稱帳戶凍結，要你操作網銀</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>Threads 送手機，騙走 400 萬餘元</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>年輕人第一名，正轉往 Threads</p></li>
+</ul>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="手法/假網拍.md" href="../wiki/手法/假網拍.md">假網拍</a>、<a data-wiki-path="分析/年輕人最常遇到的詐騙.md" href="../wiki/分析/年輕人最常遇到的詐騙.md">年輕人最常遇到的詐騙</a></footer>
+    <aside data-notes hidden class="notes">劇本三步。一、誘餌：盲盒、公仔、演唱會門票與應援物、iPhone 17 Pro 等熱門商品；或稱店家倒閉、閒置物品「免費贈送，只付運費」，例如汽車雨傘、吹風機、手機。二、轉到私下聯繫：引導加 LINE，並傳送偽造的 7-11 賣貨便、全家好賣+、嘉里大榮、順豐速運頁面。三、假客服、假專員：偽造的「官方 LINE 客服」與「銀行專員 LINE」以「帳戶違規遭凍結」「餘額不足扣款出錯」製造恐慌，要求操作網銀、ATM、行動支付或無卡提款，藉口是「只是驗證，不會扣款」。案例：台北一名女上班族因 Threads 送手機訊息，被騙 400 萬餘元。統計：假網拍是年輕人的第一名，12–17 歲女性被害人中將近一半（46.26%）是假網拍；在年輕人手法占比表的四組（女性 46.26%、32.18%，男性 29.73%、21.65%）都名列前茅。管道：詐團正從 Facebook 轉往 Threads。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S07" data-segment="tactics">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>手法與案例</div>
+      <h1 class="title"><b class="lead">手法二</b>：解除分期付款</h1>
+    </header>
+    <div class="body">
+<ul class="blocks two">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">騙買家</b>：剛下單就接到假客服來電說誤設分期</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>假銀行員再要你到 ATM 轉帳「退款」</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">騙賣家</b>：假買家稱無法下單→假客服要個資→操作 ATM</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>年輕女性被騙第二名</p></li>
+</ul>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="手法/解除分期付款.md" href="../wiki/手法/解除分期付款.md">解除分期付款</a>、<a data-wiki-path="分析/年輕人最常遇到的詐騙.md" href="../wiki/分析/年輕人最常遇到的詐騙.md">年輕人最常遇到的詐騙</a></footer>
+    <aside data-notes hidden class="notes">資料來源沒有具體案例，用兩個情境逐步示範。情境一（騙買家）：你剛下單，就接到假冒商家客服的電話，稱訂單有錯誤，例如誤設分期付款、誤設會員等級、設定成團購訂單、登記為批發商；接著假冒的銀行人員來電，指示你到 ATM 轉帳，說是要「退款」或解除設定。情境二（騙賣家）：你在賣東西，假買家私訊說賣場連結「無法下單」「無法完成訂購」，傳來假客服網站、QR Code 或 LINE ID；假賣場客服以「未簽署金流服務協議」「未開通金流服務」「未完成實名認證」等名義要求提供個資、進行身分驗證；最後假冒銀行員要求依指示操作 ATM、網銀轉帳「驗證」，或購買遊戲點數。統計：解除分期付款是年輕女性被騙的第二名，新北市 12–17 歲女性被害人中占 20.15%、18–23 歲占 19.04%；新北市整體占 9.60%，排名第 3。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S08" data-segment="tactics">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>手法與案例</div>
+      <h1 class="title"><b class="lead">手法三</b>：中獎通知</h1>
+    </header>
+    <div class="body">
+<ul class="blocks two">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">IG 假抽獎</b>：iPhone 加現金，點連結填個資</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>假客服視訊「核對身分」</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>用手續費、稅務保證金等名目一次次要匯款</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>被騙 409,908 元；18–23 歲最集中</p></li>
+</ul>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="手法/中獎通知.md" href="../wiki/手法/中獎通知.md">中獎通知</a></footer>
+    <aside data-notes hidden class="notes">劇本。一、假抽獎廣告：在 Instagram 刊登高額抽獎，例如 iPhone 加現金 99,999 元，或「用捐款換一次抽獎」可抽 10 萬、20 萬元；被害人點連結、填個資。二、建立信任：假客服用視訊通話解說領獎程序，或以「核對身分」取信。三、多次索款：以「第三方認證」手續費、「啟用費」「認證資料更新費」「稅務保證金」，或稅金、手續費、「核實金」等名目，一次又一次要求匯款。案例：IG 抽獎 iPhone 加現金，被騙 409,908 元。統計：新北市中獎通知占 4.63%，女性 5.48% 高於男性 3.63%；18–23 歲最集中，女性 12.99%、男性 10.46%，剛好是大學生的年齡。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S09" data-segment="tactics">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>手法與案例</div>
+      <h1 class="title"><b class="lead">手法四</b>：假求職</h1>
+    </header>
+    <div class="body">
+<ul class="blocks two">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>Facebook 社團、小紅書的打字工等兼職</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">騙帳戶</b>：要你寄提款卡與密碼，帳戶變人頭戶</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>或拉進群組誘導投資</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>女大學生寄卡被列警示；打字員被騙約 140 萬元</p></li>
+</ul>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="手法/假求職.md" href="../wiki/手法/假求職.md">假求職</a></footer>
+    <aside data-notes hidden class="notes">劇本：詐團用低門檻、高報酬的打工或兼職當誘餌，在 Facebook 社團或小紅書刊登家庭代工、打字工、可抽佣金、測網速、外匯操作等兼職。收割路徑一（騙帳戶）：以補助材料費等名義，要求寄出提款卡並提供密碼，帳戶就變成人頭帳戶。收割路徑二（轉投資）：拉進群組，由暗樁貼出收益截圖，誘導投資虛擬資產，再要求繳保證金、手續費，轉為假投資。案例：中部一名女大學生用超商交貨便寄出數張提款卡，帳戶後來被列警示帳戶；一名男子應徵打字員，被騙約 140 萬元。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S10" data-segment="tactics">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>手法與案例</div>
+      <h1 class="title"><b class="lead">手法五</b>：假投資</h1>
+    </header>
+    <div class="body">
+<ul class="blocks two">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>假專家、假求職或假交友找上你，拉進 LINE 群</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>假平台顯示獲利，先讓你小賺</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>大額提領時用繳稅等理由拖延再封鎖</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>2026 年 6 月財損占比第 1（32%）</p></li>
+</ul>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="手法/假投資.md" href="../wiki/手法/假投資.md">假投資</a></footer>
+    <aside data-notes hidden class="notes">資料來源沒有具體案例，用情境逐步示範。一、詐團假扮名人、財經專家或投資顧問，用穩賺不賠的話術找上你；也可能從假求職（打字員群組、測網速兼職）或假愛情交友轉入，或用 AI 深偽假冒名人。二、引導加 LINE 或加入投資群組，由「理財導師」與暗樁貼出獲利截圖，製造群體壓力與「限時參與」的急迫感。三、假平台操控後台數據顯示獲利，先讓你小額出金取信。四、大額提領時，以繳稅、手續費、保證金、帳戶凍結、洗錢防制等理由拖延，最後封鎖帳號。統計：全國 2026 年 6 月假投資財損占比第 1（32%），件數第 2（11%）。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S11" data-segment="tactics">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>手法與案例</div>
+      <h1 class="title"><b class="lead">手法六</b>：色情應召詐騙</h1>
+    </header>
+    <div class="body">
+<ul class="blocks two">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>假冒年輕女生從交友軟體加 LINE</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>稱兼職援交，要你買點數當保證金</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>不從就遭假黑道恐嚇</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>新北年輕男性約 15–16%；全國 2026 年 6 月件數第 4（6%）</p></li>
+</ul>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="手法/色情應召詐騙.md" href="../wiki/手法/色情應召詐騙.md">色情應召詐騙</a>、<a data-wiki-path="分析/年輕人最常遇到的詐騙.md" href="../wiki/分析/年輕人最常遇到的詐騙.md">年輕人最常遇到的詐騙</a></footer>
+    <aside data-notes hidden class="notes">資料來源沒有具體案例，用情境逐步示範。一、詐團假冒年輕貌美的女生，透過社群網站、交友軟體尋找被害人，並加為 LINE 好友。二、在 LINE 上透露有兼職援交，要求被害人購買遊戲點數當保證金及付款。三、被害人如果不從，就由另一名自稱黑道的男子恐嚇要對被害人不利，要求買點數或匯款。統計要分兩個口徑講：第一個是新北市的年齡性別資料，這類手法集中在年輕男性，約占 15–16%（男性另一個集中的手法是虛擬遊戲詐騙，12–17 歲 35%）；第二個是全國 2026 年 6 月的統計，色情應召詐騙的件數占比排第 4（6%）。兩者地區和時間都不同，不是同一份統計。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S12" data-segment="redflags">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>辨識紅旗</div>
+      <h1 class="title"><b class="lead">紅旗（一）</b>：防詐五不，一出現就該警覺</h1>
+    </header>
+    <div class="body">
+<ul class="blocks two">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">五不</b>：不明連結不點、個資卡號不傳、跨境來電不接</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>穩賺不賠不聽、聲稱檢警不信</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">跨境來電長這樣</b>：+886 開頭卻像國內號碼</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">共通紅旗</b>：被拉離原平台改加 LINE 私聊</p></li>
+</ul>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="概念/防詐五不.md" href="../wiki/概念/防詐五不.md">防詐五不</a>、<a data-wiki-path="概念/境外來電偽冒號碼.md" href="../wiki/概念/境外來電偽冒號碼.md">境外來電偽冒號碼</a>、<a data-wiki-path="平台/LINE.md" href="../wiki/平台/LINE.md">LINE</a></footer>
+    <aside data-notes hidden class="notes">「防詐五不」是刑事警察局整理的五句口訣，每句都附對應的詐騙關鍵字與防詐方法。一、不明連結不點：關鍵字是限時限量販售、賣場金流協議認證、假冒商家或政府發送簡訊；做法是不點不明連結、不載來路不明 APP、到官方網站查詢。二、個資卡號不傳：對方要你提供金融帳戶安全碼、填寫或傳送個人資料。三、跨境來電不接：來電顯示「+886 + 市話號碼」「+886 + 9 開頭的偽手機號碼」，其實是從境外撥入卻顯示成看似國內的號碼；不接，務必確認對方身分。四、穩賺不賠不聽：飆股、穩賺不賠、高獲利零風險、領錢須繳保證金或扣稅；不信網友教投資、不載來路不明 APP、不加不明投資群組。五、聲稱檢警不信：偵查不公開、繳交保證金、監管帳戶；先問單位姓名、掛斷電話求證、撥打 165。跨手法共通紅旗：被引導離開原本的購物或交友平台，改在 LINE 私下聯繫，就失去原平台的交易保障。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S13" data-segment="redflags">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>辨識紅旗</div>
+      <h1 class="title"><b class="lead">紅旗（二）</b>：六種手法各自的關鍵字</h1>
+    </header>
+    <div class="body">
+<ul class="blocks two">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">網拍</b>：免費送、金流驗證、無卡提款</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">解除分期</b>：剛網購就接客服來電</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">中獎</b>：先匯款、視訊非證明</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">求職</b>：交金融卡、別跟店員說</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">投資</b>：保證獲利、曬收益、先繳費</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">應召</b>：第三人恐嚇</p></li>
+</ul>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="手法/假網拍.md" href="../wiki/手法/假網拍.md">假網拍</a>、<a data-wiki-path="手法/解除分期付款.md" href="../wiki/手法/解除分期付款.md">解除分期付款</a>、<a data-wiki-path="手法/中獎通知.md" href="../wiki/手法/中獎通知.md">中獎通知</a>、<a data-wiki-path="手法/假求職.md" href="../wiki/手法/假求職.md">假求職</a>、<a data-wiki-path="手法/假投資.md" href="../wiki/手法/假投資.md">假投資</a>、<a data-wiki-path="手法/色情應召詐騙.md" href="../wiki/手法/色情應召詐騙.md">色情應召詐騙</a></footer>
+    <aside data-notes hidden class="notes">對應前面六種手法，各自最該記住的關鍵字與要求。假網拍：限時限量、低價、「免費贈送，只付運費」；「金流驗證」「解除限制」「帳戶違規遭凍結」；要求傳送「無卡提款資訊」的百分之百是詐騙。解除分期付款：剛網購完就接到「客服」來電，說訂單有錯；被要求操作 ATM 或網路銀行。中獎通知：中獎了卻要先匯款，警政署指出這一定是詐騙；對方用視訊通話證明自己是真人客服，視訊也不能當作可信證明。假求職：交保證金、交金融卡、交證件；被交代「別跟店員說寄的是金融卡」。假投資：飆股、強勢股、穩賺不賠、保證獲利、高獲利零風險、不收取費用；偽造的對帳單或獲利截圖、群組裡一堆人在曬收益；要領錢得先繳保證金、稅金、手續費，或被說要做洗錢防制審查。色情應召：有第三人出面恐嚇。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S14" data-segment="response">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>應對</div>
+      <h1 class="title"><b class="lead">應對（一）</b>：當下怎麼做、怎麼查證</h1>
+    </header>
+    <div class="body">
+<ul class="blocks two">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>掛斷後自己撥 165，不接受轉接</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>不照指示操作 ATM／網銀</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>向電商、官方管道、165 打詐儀錶板查證</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>記住刑事局「防詐四不」</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>政府不會要你 ATM 轉帳、簡訊領錢</p></li>
+</ul>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="機構/165反詐騙諮詢專線.md" href="../wiki/機構/165反詐騙諮詢專線.md">165反詐騙諮詢專線</a>、<a data-wiki-path="手法/解除分期付款.md" href="../wiki/手法/解除分期付款.md">解除分期付款</a>、<a data-wiki-path="手法/假投資.md" href="../wiki/手法/假投資.md">假投資</a>、<a data-wiki-path="機構/165打詐儀錶板.md" href="../wiki/機構/165打詐儀錶板.md">165打詐儀錶板</a>、<a data-wiki-path="概念/防詐四不.md" href="../wiki/概念/防詐四不.md">防詐四不</a>、<a data-wiki-path="手法/釣魚連結.md" href="../wiki/手法/釣魚連結.md">釣魚連結</a></footer>
+    <aside data-notes hidden class="notes">教「先停下來」的具體動作。一、可疑來電掛斷後自己撥打 165；詐團會在電話中假稱要幫你「轉接 165 專線」，不要接受。二、不依指示操作 ATM 或網路銀行。三、接到自稱客服的電話就掛斷，自己直接向電商查證；名人推薦的投資，要透過官方管道查證，不要只看社群媒體或非官方網站。四、165 打詐儀錶板是刑事警察局建置的防詐專網（https://165dashboard.tw/），民眾可用來查證自己遇到的情況是否為詐騙，例如假檢警、假網拍的最新案例。五、「防詐四不」是刑事局在 2025 年普發現金期間提出的口訣：不點擊、不填輸、不匯款、不轉傳，一切以官方資訊為準；政府不會要求到 ATM 或網銀操作轉帳，也不會用簡訊或 Email 通知你登入領錢。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S15" data-segment="response">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>應對</div>
+      <h1 class="title"><b class="lead">應對（二）</b>：平時怎麼防、被騙後找誰</h1>
+    </header>
+    <div class="body">
+<ul class="blocks two">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>正規平台、第三方支付或面交，不私下交易</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>求職不交保證金、金融卡</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>iOS 開垃圾訊息過濾</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">受害</b>：存紀錄與截圖，通知銀行與警方</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>撥 110 或 165；交出帳戶恐列警示</p></li>
+</ul>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="手法/假網拍.md" href="../wiki/手法/假網拍.md">假網拍</a>、<a data-wiki-path="手法/假求職.md" href="../wiki/手法/假求職.md">假求職</a>、<a data-wiki-path="手法/釣魚連結.md" href="../wiki/手法/釣魚連結.md">釣魚連結</a>、<a data-wiki-path="概念/警示帳戶.md" href="../wiki/概念/警示帳戶.md">警示帳戶</a></footer>
+    <aside data-notes hidden class="notes">平時：透過正規平台、可信賴的官方網站或知名電商購物，多用第三方支付；避免透過通訊軟體或社群網站和賣家私下交易；以面交或貨到付款交易，確認商品後再付款。找工作不交保證金，不交出金融卡與證件。手機設定：iOS 開啟「未知與垃圾訊息」過濾功能，並在設定中關閉 RCS。事後：受害後保存對話紀錄、匯款明細與截圖，盡快通知銀行與警方；有疑問撥 110 報案，或撥 165 諮詢。警示帳戶是因為涉及詐騙金流，被銀行依警方通報列為警示、限制使用的帳戶；出借或寄出帳戶的人，自己的帳戶也可能被列為警示帳戶，衍生信用與法律責任風險——有女大學生寄出提款卡後發現無法轉帳，才知道帳戶已被列警示。帳戶被列警示時：保存對話紀錄、匯款明細與截圖，通知銀行與警方；可以下載解除警示申請書，親自到警察機關辦理。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S16" data-segment="quiz">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>小測驗</div>
+      <h1 class="title"><b class="lead">小測驗（一）</b>：假網拍與解除分期付款</h1>
+    </header>
+    <div class="body">
+<div class="quizzes pair">
+<div class="quiz" data-quiz="Q1">
+<p class="question" data-question>Threads 貼文「手機免費送只付運費」，要你加 LINE，再由「銀行專員」要你操作網銀驗證。你該？</p>
+<div class="options">
+<button type="button" class="opt" data-option data-correct="false">照指示操作網銀驗證</button>
+<button type="button" class="opt" data-option data-correct="true">不私下交易，也不操作網銀</button>
+<button type="button" class="opt" data-option data-correct="false">先付運費試試</button>
+</div>
+<div class="answer" data-answer hidden>
+<p class="answer-text">要求離開購物平台、改用通訊軟體或社群網站私下交易，就是假網拍的紅旗；被引導改在 LINE 私下聯繫，就失去原平台的交易保障。正確做法是避免透過通訊軟體或社群網站和賣家私下交易，也不依指示操作 ATM 或網路銀行。</p>
+<div class="answer-sources" data-answer-sources>出處：<a data-wiki-path="手法/假網拍.md" href="../wiki/手法/假網拍.md">假網拍</a>、<a data-wiki-path="平台/LINE.md" href="../wiki/平台/LINE.md">LINE</a>、<a data-wiki-path="手法/解除分期付款.md" href="../wiki/手法/解除分期付款.md">解除分期付款</a></div>
+</div></div>
+<div class="quiz" data-quiz="Q2">
+<p class="question" data-question>剛下單就接到客服來電說誤設分期，銀行人員要你到 ATM 轉帳退款。你該？</p>
+<div class="options">
+<button type="button" class="opt" data-option data-correct="false">照指示到 ATM 轉帳</button>
+<button type="button" class="opt" data-option data-correct="true">掛斷，自己向電商查證或撥 165</button>
+<button type="button" class="opt" data-option data-correct="false">回撥來電號碼確認</button>
+</div>
+<div class="answer" data-answer hidden>
+<p class="answer-text">剛下單就接到假客服來電說訂單有錯（誤設分期付款），再由假銀行人員指示到 ATM 轉帳「退款」，正是解除分期付款詐騙的劇本。接到自稱客服的電話就掛斷，自己直接向電商查證，或撥 165 反詐騙諮詢專線；不依指示操作 ATM 或網路銀行。</p>
+<div class="answer-sources" data-answer-sources>出處：<a data-wiki-path="手法/解除分期付款.md" href="../wiki/手法/解除分期付款.md">解除分期付款</a></div>
+</div></div>
+</div>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="手法/假網拍.md" href="../wiki/手法/假網拍.md">假網拍</a>、<a data-wiki-path="平台/LINE.md" href="../wiki/平台/LINE.md">LINE</a>、<a data-wiki-path="手法/解除分期付款.md" href="../wiki/手法/解除分期付款.md">解除分期付款</a></footer>
+    <aside data-notes hidden class="notes">第一題對應手法一假網拍：Threads「送手機」訊息曾讓台北一名女上班族被騙 400 萬餘元。正確反應是不被引導離開原平台、不透過通訊軟體或社群私下交易、不照對方指示操作網銀或 ATM。第二題對應手法二解除分期付款：接到自稱客服的電話就掛斷，自己直接向電商查證或撥 165。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S17" data-segment="quiz">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>小測驗</div>
+      <h1 class="title"><b class="lead">小測驗（二）</b>：中獎通知與假求職</h1>
+    </header>
+    <div class="body">
+<div class="quizzes pair">
+<div class="quiz" data-quiz="Q3">
+<p class="question" data-question>沒參加過任何抽獎卻收到中獎通知，對方要你先付手續費、稅務保證金才能領獎。你該？</p>
+<div class="options">
+<button type="button" class="opt" data-option data-correct="false">先付手續費再領獎</button>
+<button type="button" class="opt" data-option data-correct="true">不匯款，這一定是詐騙</button>
+<button type="button" class="opt" data-option data-correct="false">先付一半試試看</button>
+</div>
+<div class="answer" data-answer hidden>
+<p class="answer-text">警政署指出，中獎了卻要先匯款，這一定是詐騙。詐團會以「第三方認證」手續費、「啟用費」「認證資料更新費」「稅務保證金」，或稅金、手續費、「核實金」等名目，一次又一次要求匯款，所以不要匯款。</p>
+<div class="answer-sources" data-answer-sources>出處：<a data-wiki-path="手法/中獎通知.md" href="../wiki/手法/中獎通知.md">中獎通知</a></div>
+</div></div>
+<div class="quiz" data-quiz="Q4">
+<p class="question" data-question>Facebook 社團打字工兼職，對方以補助材料費為由要你寄提款卡並給密碼，交代「別跟店員說寄的是金融卡」。你該？</p>
+<div class="options">
+<button type="button" class="opt" data-option data-correct="false">照做，先寄卡領補助</button>
+<button type="button" class="opt" data-option data-correct="true">不交金融卡也不交保證金</button>
+<button type="button" class="opt" data-option data-correct="false">只寄卡，不給密碼</button>
+</div>
+<div class="answer" data-answer hidden>
+<p class="answer-text">找工作不交保證金，不交出金融卡與證件。以補助材料費等名義要求寄出提款卡並提供密碼，帳戶會變成人頭帳戶。</p>
+<div class="answer-sources" data-answer-sources>出處：<a data-wiki-path="手法/假求職.md" href="../wiki/手法/假求職.md">假求職</a></div>
+</div></div>
+</div>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="手法/中獎通知.md" href="../wiki/手法/中獎通知.md">中獎通知</a>、<a data-wiki-path="手法/假求職.md" href="../wiki/手法/假求職.md">假求職</a></footer>
+    <aside data-notes hidden class="notes">第一題對應手法三中獎通知，考兩個紅旗：沒參加的抽獎卻通知你中獎，以及中獎了卻要先匯款。第二題對應手法四假求職：Facebook 社團或小紅書上刊登的家庭代工、打字工、可抽佣金、測網速、外匯操作等兼職都是常見名目；被交代「別跟店員說寄的是金融卡」是最該記住的紅旗。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S17a" data-segment="quiz">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>小測驗</div>
+      <h1 class="title"><b class="lead">小測驗（三）</b>：詐騙的共同樣貌與大學生</h1>
+    </header>
+    <div class="body">
+<div class="quizzes single">
+<div class="quiz" data-quiz="Q5">
+<p class="question" data-question>關於詐騙與大學生，何者正確？</p>
+<div class="options">
+<button type="button" class="opt" data-option data-correct="true">詐騙常把你拉去 LINE 私聊，由假客服接手；新北資料中學生是被害人最多的職業</button>
+<button type="button" class="opt" data-option data-correct="false">學生沒錢，詐團不會把大學生當目標；新北資料中各職業裡學生的被害人最少</button>
+<button type="button" class="opt" data-option data-correct="false">從購物平台改到 LINE 私聊一樣有保障，對方自稱官方客服就可以放心</button>
+<button type="button" class="opt" data-option data-correct="false">假網拍只騙中老年人；年輕人最常遇到的是假投資，學生很少被網拍騙到</button>
+</div>
+<div class="answer" data-answer hidden>
+<p class="answer-text">詐團把被害人從簡訊、社群平台、購物平台、交友軟體或詐騙電話轉到 LINE 私下對話，再由假客服、假專員或群組裡的「理財導師」接手；被引導離開原本的購物或交友平台、改在 LINE 私下聯繫，就失去原平台的交易保障。新北市資料中，12–23 歲約占詐欺被害人的 18.5%，各職業中本國學生的被害人最多（11.50%），所以「各職業裡學生的被害人最少」正好說反了；假網拍是年輕人的第一名，12–17 歲女性被害人中將近一半（46.26%）是假網拍。提醒：只有新北市一個地區的年齡資料，不能直接推論到全國。</p>
+<div class="answer-sources" data-answer-sources>出處：<a data-wiki-path="平台/LINE.md" href="../wiki/平台/LINE.md">LINE</a>、<a data-wiki-path="分析/年輕人最常遇到的詐騙.md" href="../wiki/分析/年輕人最常遇到的詐騙.md">年輕人最常遇到的詐騙</a></div>
+</div></div>
+</div>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="平台/LINE.md" href="../wiki/平台/LINE.md">LINE</a>、<a data-wiki-path="分析/年輕人最常遇到的詐騙.md" href="../wiki/分析/年輕人最常遇到的詐騙.md">年輕人最常遇到的詐騙</a></footer>
+    <aside data-notes hidden class="notes">這題同時回顧「詐騙的基本樣貌」與「為什麼大學生也是目標」兩頁。可以請同學說出錯誤選項各自錯在哪：第二個選項說學生不是目標、各職業裡學生被害人最少，但新北市資料中本國學生正是被害人最多的職業（11.50%）；第三個選項錯在改到 LINE 私聊就失去原平台的交易保障；第四個選項錯在假網拍是年輕人的第一名，新北市 12–17 歲女性被害人將近一半（46.26%）是假網拍。</aside>
+  </div>
+</section>
+
+<section class="slide" data-slide="S18" data-segment="summary">
+  <div class="frame">
+    <div class="deco-wrap" data-deco aria-hidden="true"><div class="deco-ring"></div></div>
+    <header class="head">
+      <div class="eyebrow" data-ui>總結</div>
+      <h1 class="title"><b class="lead">帶走三件事</b>：停、查、找人</h1>
+    </header>
+    <div class="body">
+<ul class="blocks two">
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">停</b>：拉去 LINE、操作 ATM 或匯款就停</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">查</b>：掛斷後自撥 165 或向官方查證</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p><b class="lead">找人</b>：存紀錄、通知銀行警方</p></li>
+<li class="block"><span class="dot" data-deco aria-hidden="true"></span><p>虛幣贓款平均 6.29 分鐘轉走一半，事前停最重要</p></li>
+</ul>
+    </div>
+    <footer class="sources" data-sources>來源：<a data-wiki-path="平台/LINE.md" href="../wiki/平台/LINE.md">LINE</a>、<a data-wiki-path="手法/解除分期付款.md" href="../wiki/手法/解除分期付款.md">解除分期付款</a>、<a data-wiki-path="概念/防詐四不.md" href="../wiki/概念/防詐四不.md">防詐四不</a>、<a data-wiki-path="機構/165反詐騙諮詢專線.md" href="../wiki/機構/165反詐騙諮詢專線.md">165反詐騙諮詢專線</a>、<a data-wiki-path="手法/假投資.md" href="../wiki/手法/假投資.md">假投資</a>、<a data-wiki-path="手法/假網拍.md" href="../wiki/手法/假網拍.md">假網拍</a>、<a data-wiki-path="統計/詐騙贓款流向統計.md" href="../wiki/統計/詐騙贓款流向統計.md">詐騙贓款流向統計</a></footer>
+    <aside data-notes hidden class="notes">三個帶走的重點。一、停：幾乎每種詐騙都會把你從原平台拉到 LINE 私下對話，離開原平台就失去交易保障；只要被要求操作 ATM、網路銀行或匯款，就停下來——不依指示操作 ATM 或網路銀行、不匯款。二、查：掛斷後自己撥打 165，不接受對方「轉接 165」；自己直接向電商查證，名人推薦的投資要透過官方管道查證。三、找人：萬一受害，保存對話紀錄、匯款明細與截圖，盡快通知銀行與警方。最後提醒：轉進虛擬貨幣交易所的贓款，平均 6.29 分鐘就轉走一半（指標是「轉移 50% 款項的平均時間」），比 ATM 提領快了約 19 倍；這組數字只來自遠東商業銀行一家，不是全國所有銀行的統計。所以事前停下來最重要。</aside>
+  </div>
+</section>
+
+<nav class="hud" data-ui aria-label="簡報導覽">
+  <button type="button" data-nav="prev" aria-label="上一頁">← 上一頁</button>
+  <div class="bar" data-progress><i></i></div>
+  <span class="count" data-count></span>
+  <button type="button" data-nav="next" aria-label="下一頁">下一頁 →</button>
+  <span class="hint">← → 翻頁・N 講者備註</span>
+</nav>
+
+<script>
+(function(){
+  var slides=Array.prototype.slice.call(document.querySelectorAll('section.slide'));
+  var idx=0, total=slides.length;
+  var fill=document.querySelector('[data-progress] i');
+  var count=document.querySelector('[data-count]');
+  function pad(n){return (n<10?'0':'')+n;}
+  function show(i){
+    idx=Math.max(0,Math.min(total-1,i));
+    slides.forEach(function(s,k){ s.classList.toggle('active',k===idx); if(k===idx){ s.scrollTop=0; var f=s.querySelector('.frame'); if(f) f.scrollTop=0; } });
+    if(fill) fill.style.width=((idx+1)/total*100)+'%';
+    if(count) count.textContent=pad(idx+1)+' / '+pad(total);
+    try{ history.replaceState(null,'','#'+slides[idx].getAttribute('data-slide')); }catch(e){}
+  }
+  function fromHash(){
+    var h=(location.hash||'').replace('#','');
+    var k=slides.findIndex(function(s){return s.getAttribute('data-slide')===h;});
+    return k>=0?k:0;
+  }
+  document.addEventListener('keydown',function(e){
+    if(e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){ e.preventDefault(); show(idx+1); }
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); show(idx-1); }
+    else if(e.key==='Home'){ show(0); }
+    else if(e.key==='End'){ show(total-1); }
+    else if(e.key==='n'||e.key==='N'){
+      var n=slides[idx].querySelector('[data-notes]'); if(n) n.hidden=!n.hidden;
+    }
+  });
+  document.querySelectorAll('[data-nav="prev"]').forEach(function(b){ b.addEventListener('click',function(){show(idx-1);}); });
+  document.querySelectorAll('[data-nav="next"]').forEach(function(b){ b.addEventListener('click',function(){show(idx+1);}); });
+  document.querySelectorAll('[data-quiz]').forEach(function(q){
+    var opts=q.querySelectorAll('[data-option]');
+    var ans=q.querySelector('[data-answer]');
+    opts.forEach(function(o){
+      o.addEventListener('click',function(){
+        if(q.classList.contains('done')) return;
+        q.classList.add('done'); o.classList.add('picked');
+        opts.forEach(function(x){ x.disabled=true; });
+        if(ans){
+          ans.hidden=false;
+          if(window.matchMedia && window.matchMedia('(max-width:900px)').matches){
+            requestAnimationFrame(function(){ try{ ans.scrollIntoView({block:'nearest',behavior:'smooth'}); }catch(e){ ans.scrollIntoView(false); } });
+          }
+        }
+      });
+    });
+  });
+  var sx=null;
+  document.addEventListener('touchstart',function(e){ sx=e.touches[0].clientX; },{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(sx===null) return; var dx=e.changedTouches[0].clientX-sx; sx=null;
+    if(Math.abs(dx)>60){ show(dx<0?idx+1:idx-1); }
+  });
+  show(fromHash());
+})();
+</script>
+</body>
+</html>

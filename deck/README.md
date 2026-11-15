@@ -1,9 +1,9 @@
 # 大學生防詐指南：用 Graph Workflow 生成的教學簡報
 
-- **成品**：[deck.html](deck.html)。單一 HTML 檔，共 19 頁，用 ← → 翻頁，N 鍵切換講者備註，手機也能看
+- **成品**：[deck.html](deck.html)。單一 HTML 檔，共 17 頁（graph v2 第 2 次執行），用 ← → 翻頁，N 鍵切換講者備註；電腦版 1280×720。v1 成品留在 [work/v1/deck.html](work/v1/deck.html)
 - **唯一知識來源**：[`wiki/`](../wiki/)。每頁底部的來源列都連到對應的 wiki 頁面
-- **graph 規格**：[graph.md](graph.md)（版本 v1，git tag `graph-v1`）
-- **本次執行紀錄**：[logs/run_20261113-112943.md](logs/run_20261113-112943.md)；版本比較：[logs/compare.md](logs/compare.md)
+- **graph 規格**：[graph.md](graph.md)（目前 v2，git tag `graph-v2`；v1 為 tag `graph-v1`）
+- **執行紀錄**：第 1 次（v1）[logs/run_20261113-112943.md](logs/run_20261113-112943.md)、第 2 次（v2）[logs/run_20261114-170936.md](logs/run_20261114-170936.md)；版本比較：[logs/compare.md](logs/compare.md)
 
 ## 一、流程圖
 
@@ -67,7 +67,7 @@ flowchart TD
 3. **局部重跑**：大退回時先存快照，只重做受影響的卡片和頁面，程式會確認範圍外的內容一字不動（「第 6 頁講錯，其他 14 頁不動」）
 4. **記錄「在哪裡發現」與「在哪裡產生」**：兩者不同就代表錯誤太晚才被發現，檢查應該往前移，這是改版時的依據
 
-## 三、本次執行摘要（20261113-112943，graph v1）
+## 三、第 1 次執行摘要（20261113-112943，graph v1）
 
 | 指標 | 數值 |
 |---|---|
@@ -88,11 +88,43 @@ flowchart TD
 - **程式檢查和截圖審查互補**：手機版的解答被固定導覽列蓋住，程式判定「可以捲動」就算通過，是看截圖的 AI 審查員抓出來的
 - **AI 說「有張力」，使用者說「沒意義」**：加圖版本的放大數字通過了 AI 審查的「數字有張力」一項，但使用者指出那只是把底下的文字再抄一次，所以只保留了封面的圖
 
+## 三之二、第 2 次執行（20261114-170936，graph v2）
+
+### v2 改了什麼（依第 1 次的紀錄）
+把兩個「晚發現」的檢查往前移：
+- **案例檢查 N4 → N2**：v1 選了 wiki 沒有案例的假投資、色情應召，到 N4 審查才發現（N4 不通過 7 次）。v2 的 N2 程式先檢查手法頁有沒有案例
+- **數字口徑檢查 N6 → N3**：v1 的「6.29 分鐘」少了「轉移 50% 款項」，到 N6 才發現並大退回。v2 的 N3 程式要求：數字若是表格數值，必須有卡片抄下那一列
+- 其他：審查員讀得到 config、重審先複查上一輪問題、修 `log_event.py`、N7 只留封面照
+- 用 v1 成品測試，兩個新檢查都抓得到 v1 的那兩個問題
+
+### 結果（詳見 [compare.md](logs/compare.md)）
+| 指標 | v1 | v2 |
+|---|---|---|
+| 檢查次數 | 50 | 34 |
+| 不通過 | 16 | 12 |
+| N4 大綱不通過 | 7 | 3 |
+| 人工關卡退回 | 3 | 0 |
+| 晚發現 | 7 | 6 |
+| 最常出錯的節點 | N4（7 次） | N8（5 次） |
+
+### 值得反思的事件
+- **往前移有效**：N1 一開始就選了有案例的中獎通知、假求職，N2 一次通過；N4 審查再也沒有出現「缺案例」；表格數字在 N3 就附上口徑。N4 的審查問題數 5 → 1 → 0 收斂，v1 是每輪冒出新問題
+- **往前移沒有消滅所有晚發現**：N6 仍觸發一次大退回，原因換成「證據卡白話句加了 wiki 沒有的推論」（例如「學生最多」被寫成「大學生就是目標」）。這種錯程式比對不出來，只有回頭讀 wiki 的 N6 抓得到
+- **最常出錯的節點從 N4 移到 N8**：U4 使用者要求「文字大一點、搭配數據表或圖片」，檢查程式只能確認表上的字來自稿，看不出表格有沒有意思；缺欄頭、看不出在比什麼，是看截圖的 AI 審查員抓到的。檢查程式也因為跟不上新格式誤判一次
+- **卡關後的人工決定**：N8 第 3 輪卡關（手機版捲動方式違反約定），使用者決定只做電腦版
+- **token 成本**：生成節點用 Fable、每個 subagent 都重讀檔案，中途碰到 3 次用量上限。最後幾次小修改由主流程直接改、審查改用 Sonnet 縮小範圍
+
 ## 四、圖片來源
+
+第 2 次執行（目前的 deck.html），皆為 Wikimedia Commons 上的 CC0 照片（原出自 Unsplash）：
 
 | 頁 | 作者 | 授權 | 連結 |
 |---|---|---|---|
-| S01 封面 | Jaroslav Maléř | Pexels License | https://www.pexels.com/photo/man-holding-a-mobile-phone-in-the-dark-19949818/ |
+| S01 封面 | James Sutton | CC0 | https://commons.wikimedia.org/wiki/File:Person_looks_down_at_phone_(Unsplash).jpg |
+| S04 詐騙的基本樣貌 | Alejandro Escamilla | CC0 | https://commons.wikimedia.org/wiki/File:Man_with_smartphone_and_laptop_(Unsplash).jpg |
+| S09 假求職 | Bench Accounting | CC0 | https://commons.wikimedia.org/wiki/File:Ships_out_today_(Unsplash).jpg |
+
+第 1 次執行（work/v1/deck.html）：S01 封面，Jaroslav Maléř，Pexels License，https://www.pexels.com/photo/man-holding-a-mobile-phone-in-the-dark-19949818/
 
 照片只當裝飾使用，簡報上的文字和數字全部來自 wiki。
 
@@ -100,7 +132,8 @@ flowchart TD
 
 | 路徑 | 內容 |
 |---|---|
-| `work/00_brief.md` ～ `work/08_review.json` | 各節點的成品與檢查結果（`*_r*.json`／`*_r*.md` 是各輪的歷史版本） |
+| `work/00_brief.md` ～ `work/08_review.json` | 第 2 次執行各節點的成品與檢查結果（`*_r*.json`／`*_r*.md` 是各輪的歷史版本） |
+| `work/v1/` | 第 1 次執行（v1）的成品與檢查結果 |
 | `work/screenshots/` | N8 的桌機與手機截圖 |
 | `logs/events.jsonl` | 每次檢查一行，只追加 |
 | `logs/run_<id>.md` | 單次執行彙總 |

@@ -69,7 +69,8 @@ def record(node, checker, checks, result, routed_to=None, reason=None,
     last_ts = datetime.fromisoformat(events[-1]["timestamp"]) if events else now
 
     # 最近一次「重設點」（大退回、人工決定）之後，才算同一輪 loop
-    reset_at = max((i for i, e in enumerate(events) if e.get("reset")), default=-1)
+    # 卡關後的人工決定（ESC）不論通過或退回都算重設點（graph.md 第四節）
+    reset_at = max((i for i, e in enumerate(events) if e.get("reset") or e["node"] == "ESC"), default=-1)
     since = events[reset_at + 1:]
     loop = loop_of(node, c)
 
@@ -139,7 +140,7 @@ def record(node, checker, checks, result, routed_to=None, reason=None,
         "reason": reason if result != "pass" else (reason or None),
         "rerun_scope": {k: scope[k] for k in ("from", "reason", "cards", "slides", "untouched") if k in scope} if scope else None,
         "big_retreat": big,
-        "reset": bool(big or (checker == "human" and result != "pass")),
+        "reset": bool(big or (checker == "human" and (result != "pass" or node == "ESC"))),
         "signature": _signature(checks) if result != "pass" else None,
         "next": next_node,
         "timestamp": now.isoformat(timespec="seconds"),
@@ -210,7 +211,8 @@ def cmd_status(args):
     c = cfg()
     run = current_run()
     events = read_events(run["run_id"])
-    reset_at = max((i for i, e in enumerate(events) if e.get("reset")), default=-1)
+    # 卡關後的人工決定（ESC）不論通過或退回都算重設點（graph.md 第四節）
+    reset_at = max((i for i, e in enumerate(events) if e.get("reset") or e["node"] == "ESC"), default=-1)
     since = events[reset_at + 1:]
     print(f"執行 {run['run_id']}（graph {run['graph_version']}），共 {len(events) - 1} 筆紀錄")
     for loop in c["loops"]:

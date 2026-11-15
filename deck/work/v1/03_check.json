@@ -1,0 +1,37 @@
+{
+  "node": "N3",
+  "checker": "script",
+  "result": "pass",
+  "checks": [
+    {
+      "item": "卡號格式與不重複",
+      "pass": true,
+      "detail": "共 118 張"
+    },
+    {
+      "item": "頁面在 N1 選取範圍內",
+      "pass": true
+    },
+    {
+      "item": "段落存在",
+      "pass": true
+    },
+    {
+      "item": "原句逐字出現在 wiki",
+      "pass": true
+    },
+    {
+      "item": "白話句數字都在原句裡",
+      "pass": true
+    },
+    {
+      "item": "每段卡片足夠",
+      "pass": true
+    },
+    {
+      "item": "範圍外卡片未變動",
+      "pass": true,
+      "detail": "重跑範圍：['E11']"
+    }
+  ]
+}

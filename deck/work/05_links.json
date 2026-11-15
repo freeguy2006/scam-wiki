@@ -13,21 +13,13 @@
       "wiki_path": "分析/年輕人最常遇到的詐騙.md",
       "href": "../wiki/分析/年輕人最常遇到的詐騙.md"
     },
-    "詐騙贓款流向統計": {
-      "wiki_path": "統計/詐騙贓款流向統計.md",
-      "href": "../wiki/統計/詐騙贓款流向統計.md"
-    },
-    "LINE": {
-      "wiki_path": "平台/LINE.md",
-      "href": "../wiki/平台/LINE.md"
+    "詐欺犯罪危害防制條例": {
+      "wiki_path": "概念/詐欺犯罪危害防制條例.md",
+      "href": "../wiki/概念/詐欺犯罪危害防制條例.md"
     },
     "假網拍": {
       "wiki_path": "手法/假網拍.md",
       "href": "../wiki/手法/假網拍.md"
-    },
-    "Threads": {
-      "wiki_path": "平台/Threads.md",
-      "href": "../wiki/平台/Threads.md"
     },
     "解除分期付款": {
       "wiki_path": "手法/解除分期付款.md",
@@ -41,25 +33,17 @@
       "wiki_path": "手法/假求職.md",
       "href": "../wiki/手法/假求職.md"
     },
-    "假投資": {
-      "wiki_path": "手法/假投資.md",
-      "href": "../wiki/手法/假投資.md"
-    },
-    "色情應召詐騙": {
-      "wiki_path": "手法/色情應召詐騙.md",
-      "href": "../wiki/手法/色情應召詐騙.md"
-    },
     "防詐五不": {
       "wiki_path": "概念/防詐五不.md",
       "href": "../wiki/概念/防詐五不.md"
     },
-    "境外來電偽冒號碼": {
-      "wiki_path": "概念/境外來電偽冒號碼.md",
-      "href": "../wiki/概念/境外來電偽冒號碼.md"
+    "防詐四不": {
+      "wiki_path": "概念/防詐四不.md",
+      "href": "../wiki/概念/防詐四不.md"
     },
-    "釣魚連結": {
-      "wiki_path": "手法/釣魚連結.md",
-      "href": "../wiki/手法/釣魚連結.md"
+    "LINE": {
+      "wiki_path": "平台/LINE.md",
+      "href": "../wiki/平台/LINE.md"
     },
     "165反詐騙諮詢專線": {
       "wiki_path": "機構/165反詐騙諮詢專線.md",
@@ -69,17 +53,9 @@
       "wiki_path": "機構/165打詐儀錶板.md",
       "href": "../wiki/機構/165打詐儀錶板.md"
     },
-    "防詐四不": {
-      "wiki_path": "概念/防詐四不.md",
-      "href": "../wiki/概念/防詐四不.md"
-    },
     "警示帳戶": {
       "wiki_path": "概念/警示帳戶.md",
       "href": "../wiki/概念/警示帳戶.md"
-    },
-    "人頭帳戶": {
-      "wiki_path": "概念/人頭帳戶.md",
-      "href": "../wiki/概念/人頭帳戶.md"
     }
   }
 }

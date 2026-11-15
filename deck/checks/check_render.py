@@ -188,6 +188,8 @@ def run():
                     expect = [s.get("title", "")] + [b.get("text", "") for b in s.get("blocks", [])]
                     for q in s.get("quiz", []):
                         expect += [q.get("question", "")] + [o.get("text", "") for o in q.get("options", [])]
+                    # 「項目｜數值｜數值」的 block 會做成表格，一格一格比對（v2 U4 加入的格式）
+                    expect = [cell.strip() for e in expect for cell in e.split("｜")]
                     expect = [e for e in expect if e.strip()]
                     missing = [e[:15] for e in expect if norm(e) not in body]
                     if missing:

@@ -6,7 +6,7 @@
     {
       "item": "卡號格式與不重複",
       "pass": true,
-      "detail": "共 118 張"
+      "detail": "共 102 張"
     },
     {
       "item": "頁面在 N1 選取範圍內",
@@ -25,13 +25,17 @@
       "pass": true
     },
     {
+      "item": "數字附上表格口徑",
+      "pass": true
+    },
+    {
       "item": "每段卡片足夠",
       "pass": true
     },
     {
       "item": "範圍外卡片未變動",
       "pass": true,
-      "detail": "重跑範圍：['E11']"
+      "detail": "重跑範圍：['E17', 'E72', 'E88']"
     }
   ]
 }

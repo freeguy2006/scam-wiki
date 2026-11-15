@@ -1,3 +1,23 @@
 [
-  {"slide": "S01", "url": "https://www.pexels.com/photo/man-holding-a-mobile-phone-in-the-dark-19949818/", "author": "Jaroslav Maléř", "license": "Pexels License", "note": "縮至 1280 寬、JPEG q70、提亮後 base64 內嵌"}
+  {
+    "slide": "S01",
+    "url": "https://commons.wikimedia.org/wiki/File:Person_looks_down_at_phone_(Unsplash).jpg",
+    "author": "James Sutton jamessutton_photography",
+    "license": "CC0 (http://creativecommons.org/publicdomain/zero/1.0/deed.en)",
+    "source": "Wikimedia Commons (originally Unsplash)"
+  },
+  {
+    "slide": "S04",
+    "url": "https://commons.wikimedia.org/wiki/File:Man_with_smartphone_and_laptop_(Unsplash).jpg",
+    "author": "Alejandro Escamilla alejandroescamilla",
+    "license": "CC0 (http://creativecommons.org/publicdomain/zero/1.0/deed.en)",
+    "source": "Wikimedia Commons (originally Unsplash)"
+  },
+  {
+    "slide": "S09",
+    "url": "https://commons.wikimedia.org/wiki/File:Ships_out_today_(Unsplash).jpg",
+    "author": "Bench Accounting benchaccounting",
+    "license": "CC0 (http://creativecommons.org/publicdomain/zero/1.0/deed.en)",
+    "source": "Wikimedia Commons (originally Unsplash)"
+  }
 ]
